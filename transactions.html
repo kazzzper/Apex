@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions | ApexTrades</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.svg" alt="ApexTrades">
+                <span>ApexTrades</span>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="dashboard.html">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-robot"></i>
+                        <span>Trading Bots</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="transactions.html">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Transactions</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="#" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Log Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search transactions...">
+            </div>
+            <div class="user-menu">
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </div>
+                <div class="user-profile">
+                    <img src="assets/images/user-avatar.png" alt="User" id="userAvatar">
+                    <span id="userNameDisplay">Loading...</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="transactions-header">
+                <h1>Transaction History</h1>
+                <div class="transaction-filters">
+                    <div class="filter-group">
+                        <label for="txType">Type:</label>
+                        <select id="txType">
+                            <option value="all">All</option>
+                            <option value="deposit">Deposits</option>
+                            <option value="withdrawal">Withdrawals</option>
+                            <option value="investment">Investments</option>
+                            <option value="profit">Profits</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="txStatus">Status:</label>
+                        <select id="txStatus">
+                            <option value="all">All</option>
+                            <option value="completed">Completed</option>
+                            <option value="pending">Pending</option>
+                            <option value="failed">Failed</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="txDate">Date:</label>
+                        <select id="txDate">
+                            <option value="all">All Time</option>
+                            <option value="7days">Last 7 Days</option>
+                            <option value="30days">Last 30 Days</option>
+                            <option value="90days">Last 90 Days</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="transactions-list">
+                <div class="transaction-card completed">
+                    <div class="tx-icon">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="tx-details">
+                        <div class="tx-description">
+                            <h3>Plan Upgrade - Advanced</h3>
+                            <p class="tx-date">Today, 10:45 AM</p>
+                        </div>
+                        <div class="tx-amount positive">
+                            +$1000.00
+                        </div>
+                    </div>
+                </div>
+                <div class="transaction-card completed">
+                    <div class="tx-icon">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="tx-details">
+                        <div class="tx-description">
+                            <h3>Weekly Profit</h3>
+                            <p class="tx-date">Yesterday, 2:30 PM</p>
+                        </div>
+                        <div class="tx-amount positive">
+                            +$85.50
+                        </div>
+                    </div>
+                </div>
+                <div class="transaction-card pending">
+                    <div class="tx-icon">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="tx-details">
+                        <div class="tx-description">
+                            <h3>Withdrawal Request</h3>
+                            <p class="tx-date">2 days ago, 9:15 AM</p>
+                            <p class="tx-note">Processing - Estimated completion in 24 hours</p>
+                        </div>
+                        <div class="tx-amount negative">
+                            -$200.00
+                        </div>
+                    </div>
+                </div>
+                <div class="transaction-card completed">
+                    <div class="tx-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="tx-details">
+                        <div class="tx-description">
+                            <h3>Bot Trade Execution</h3>
+                            <p class="tx-date">3 days ago, 5:20 PM</p>
+                        </div>
+                        <div class="tx-amount positive">
+                            +$42.75
+                        </div>
+                    </div>
+                </div>
+                <div class="transaction-card completed">
+                    <div class="tx-icon">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="tx-details">
+                        <div class="tx-description">
+                            <h3>Initial Deposit</h3>
+                            <p class="tx-date">1 week ago, 11:30 AM</p>
+                        </div>
+                        <div class="tx-amount positive">
+                            +$1000.00
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <button class="btn btn-outline" disabled>
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <span>Page 1 of 1</span>
+                <button class="btn btn-outline" disabled>
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

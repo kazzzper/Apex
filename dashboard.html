@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | ApexTrades</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.svg" alt="ApexTrades">
+                <span>ApexTrades</span>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="active">
+                    <a href="dashboard.html">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-robot"></i>
+                        <span>Trading Bots</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="transactions.html">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Transactions</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="#" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Log Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="user-menu">
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </div>
+                <div class="user-profile">
+                    <img src="assets/images/user-avatar.png" alt="User" id="userAvatar">
+                    <span id="userNameDisplay">Loading...</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="welcome-banner">
+                <h1>Welcome back, <span id="username">Trader</span>!</h1>
+                <p>Your trading dashboard is ready. Check your portfolio performance below.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h3>Account Balance</h3>
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="stat-value" id="accountBalance">$0.00</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 5.2% this month
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h3>Total Profit</h3>
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-value" id="totalProfit">$0.00</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 12.7% all time
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h3>Active Bots</h3>
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="stat-value" id="activeBots">0</div>
+                    <div class="stat-change neutral">
+                        <i class="fas fa-equals"></i> No change
+                    </div>
+                </div>
+            </div>
+
+            <div class="upgrade-section">
+                <h2>Upgrade Your Trading Plan</h2>
+                <p>Choose a higher tier to unlock more features and better returns</p>
+                <div class="plans-grid">
+                    <div class="plan-card">
+                        <h3>Starter</h3>
+                        <div class="price">$500</div>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Basic strategies</li>
+                            <li><i class="fas fa-check"></i> 5% monthly returns</li>
+                            <li><i class="fas fa-check"></i> Email support</li>
+                        </ul>
+                        <a href="payment.html?plan=starter" class="btn btn-outline">Upgrade</a>
+                    </div>
+                    <div class="plan-card popular">
+                        <div class="badge">Recommended</div>
+                        <h3>Advanced</h3>
+                        <div class="price">$1000</div>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Advanced strategies</li>
+                            <li><i class="fas fa-check"></i> 10% monthly returns</li>
+                            <li><i class="fas fa-check"></i> Live chat support</li>
+                        </ul>
+                        <a href="payment.html?plan=advanced" class="btn btn-primary">Upgrade</a>
+                    </div>
+                    <div class="plan-card">
+                        <h3>Professional</h3>
+                        <div class="price">$1500</div>
+                        <ul>
+                            <li><i class="fas fa-check"></i> VIP strategies</li>
+                            <li><i class="fas fa-check"></i> 15% monthly returns</li>
+                            <li><i class="fas fa-check"></i> Dedicated manager</li>
+                        </ul>
+                        <a href="payment.html?plan=professional" class="btn btn-outline">Upgrade</a>
+                    </div>
+                    <div class="plan-card">
+                        <h3>Enterprise</h3>
+                        <div class="price">$3000</div>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Custom strategies</li>
+                            <li><i class="fas fa-check"></i> 25% monthly returns</li>
+                            <li><i class="fas fa-check"></i> 24/7 priority support</li>
+                        </ul>
+                        <a href="payment.html?plan=enterprise" class="btn btn-outline">Upgrade</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
