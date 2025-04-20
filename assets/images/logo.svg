@@ -1,16 +1,12 @@
-<svg width="200" height="100" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background (optional) -->
-  <rect width="200" height="100" fill="#f8f9fa" rx="10" />
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Rounded deep blue background -->
+  <rect width="200" height="200" rx="100" fill="#0a1f44" />
   
-  <!-- Mountain (Apex) -->
-  <polygon points="50,70 30,40 70,40" fill="#3a86ff" />
-  <polygon points="70,40 50,10 90,40" fill="#2667cc" />
-  <polygon points="90,40 70,40 110,70" fill="#3a86ff" />
+  <!-- White "AT" monogram (custom rounded font) -->
+  <text x="100" y="125" font-family="Arial, sans-serif" font-size="80" font-weight="bold" text-anchor="middle" fill="white" letter-spacing="-5">
+    AT
+  </text>
   
-  <!-- Arrow (Trades/Growth) -->
-  <polygon points="130,60 150,30 170,60" fill="#ff6b35" />
-  <rect x="148" y="60" width="4" height="20" fill="#ff6b35" />
-  
-  <!-- Text: Apex Trades -->
-  <text x="100" y="90" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">APEX TRADES</text>
+  <!-- Optional: Subtle trade arrow integrated into the "A" -->
+  <path d="M 75 80 L 100 40 L 125 80 L 115 80 L 100 55 L 85 80 Z" fill="white" opacity="0.8" />
 </svg>
