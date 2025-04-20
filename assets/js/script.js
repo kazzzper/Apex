@@ -168,7 +168,7 @@ function setupPaymentPage() {
                     localStorage.setItem('apextrades_users', JSON.stringify(users));
                 }
                 
-                alert('Thank you for your payment! Your account has been upgraded.');
+                alert('Thank you for your payment! Kindly wait for your account to be upgraded.');
                 window.location.href = 'dashboard.html';
             }
         });
