@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ApexTrades | AI-Powered Crypto & Forex Trading</title>
+    <title>ApexTrades | AI-Powered Crypto Copy Trading</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- TradingView Widgets -->
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 </head>
 <body>
     <nav class="navbar">
@@ -18,7 +16,6 @@
             </a>
             <div class="nav-links">
                 <a href="#features">Features</a>
-                <a href="#markets">Markets</a>
                 <a href="#pricing">Pricing</a>
                 <a href="login.html" class="btn btn-outline">Login</a>
                 <a href="signup.html" class="btn btn-primary">Sign Up</a>
@@ -32,11 +29,11 @@
     <header class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>AI-Powered Crypto & Forex Trading</h1>
-                <p>Join thousands of traders using our advanced algorithms to maximize profits in volatile markets.</p>
+                <h1>Automated Crypto Trading Powered by AI</h1>
+                <p>Join thousands of traders using our advanced copy trading bots to maximize profits while minimizing risk.</p>
                 <div class="cta-buttons">
                     <a href="signup.html" class="btn btn-primary">Get Started</a>
-                    <a href="#markets" class="btn btn-outline">View Markets</a>
+                    <a href="#features" class="btn btn-outline">Learn More</a>
                 </div>
             </div>
             <div class="hero-image">
@@ -45,167 +42,23 @@
         </div>
     </header>
 
-    <section id="markets" class="market-widgets">
-        <div class="container">
-            <h2>Live Market Data</h2>
-            <p>Real-time cryptocurrency and forex market overview</p>
-            
-            <div class="widget-grid">
-                <!-- Crypto Heatmap -->
-                <div class="widget-card">
-                    <div class="widget-header">
-                        <h3>Crypto Heatmap</h3>
-                        <div class="timeframe-selector">
-                            <button class="timeframe-btn active" data-timeframe="24h">24h</button>
-                            <button class="timeframe-btn" data-timeframe="7d">7d</button>
-                            <button class="timeframe-btn" data-timeframe="1m">1m</button>
-                        </div>
-                    </div>
-                    <div class="tradingview-widget-container">
-                        <div class="tradingview-widget-container__widget" id="crypto-heatmap"></div>
-                        <script type="text/javascript">
-                            new TradingView.widget({
-                                "width": "100%",
-                                "height": "500",
-                                "symbol": "CRYPTOCAP:TOTAL",
-                                "interval": "D",
-                                "timezone": "Etc/UTC",
-                                "theme": "light",
-                                "style": "1",
-                                "locale": "en",
-                                "toolbar_bg": "#f1f3f6",
-                                "enable_publishing": false,
-                                "hide_top_toolbar": true,
-                                "hide_side_toolbar": true,
-                                "allow_symbol_change": true,
-                                "container_id": "crypto-heatmap",
-                                "studies": [
-                                    "STD;MA%1Cross"
-                                ],
-                                "overrides": {
-                                    "mainSeriesProperties.style": 0,
-                                    "paneProperties.background": "#ffffff",
-                                    "paneProperties.vertGridProperties.color": "#f0f3fa",
-                                    "paneProperties.horzGridProperties.color": "#f0f3fa"
-                                }
-                            });
-                        </script>
-                    </div>
-                </div>
-                
-                <!-- Forex Market Overview -->
-                <div class="widget-card">
-                    <div class="widget-header">
-                        <h3>Forex Market Overview</h3>
-                        <div class="timeframe-selector">
-                            <button class="timeframe-btn active" data-timeframe="1h">1h</button>
-                            <button class="timeframe-btn" data-timeframe="4h">4h</button>
-                            <button class="timeframe-btn" data-timeframe="1d">1d</button>
-                        </div>
-                    </div>
-                    <div class="tradingview-widget-container">
-                        <div class="tradingview-widget-container__widget" id="forex-market"></div>
-                        <script type="text/javascript">
-                            new TradingView.widget({
-                                "width": "100%",
-                                "height": "500",
-                                "symbol": "FX:EURUSD",
-                                "interval": "60",
-                                "timezone": "Etc/UTC",
-                                "theme": "light",
-                                "style": "1",
-                                "locale": "en",
-                                "toolbar_bg": "#f1f3f6",
-                                "enable_publishing": false,
-                                "hide_top_toolbar": true,
-                                "hide_side_toolbar": true,
-                                "allow_symbol_change": true,
-                                "container_id": "forex-market",
-                                "studies": [
-                                    "STD;MA%1Cross"
-                                ],
-                                "overrides": {
-                                    "mainSeriesProperties.style": 0,
-                                    "paneProperties.background": "#ffffff",
-                                    "paneProperties.vertGridProperties.color": "#f0f3fa",
-                                    "paneProperties.horzGridProperties.color": "#f0f3fa"
-                                }
-                            });
-                        </script>
-                    </div>
-                </div>
-                
-                <!-- Crypto Price Ticker -->
-                <div class="widget-card full-width">
-                    <div class="widget-header">
-                        <h3>Top Cryptocurrencies</h3>
-                    </div>
-                    <div class="tradingview-widget-container">
-                        <div class="tradingview-widget-container__widget" id="crypto-ticker"></div>
-                        <div class="tradingview-widget-copyright">
-                            <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"></a>
-                        </div>
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
-                            {
-                                "width": "100%",
-                                "height": "400",
-                                "defaultColumn": "overview",
-                                "screener_type": "crypto_mkt",
-                                "displayCurrency": "USD",
-                                "colorTheme": "light",
-                                "locale": "en",
-                                "isTransparent": false
-                            }
-                        </script>
-                    </div>
-                </div>
-                
-                <!-- Forex Cross Rates -->
-                <div class="widget-card full-width">
-                    <div class="widget-header">
-                        <h3>Forex Cross Rates</h3>
-                    </div>
-                    <div class="tradingview-widget-container">
-                        <div class="tradingview-widget-container__widget" id="forex-cross-rates"></div>
-                        <div class="tradingview-widget-copyright">
-                            <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"></a>
-                        </div>
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js" async>
-                            {
-                                "width": "100%",
-                                "height": "400",
-                                "currencies": [
-                                    "EUR",
-                                    "USD",
-                                    "JPY",
-                                    "GBP",
-                                    "CHF",
-                                    "AUD",
-                                    "CAD",
-                                    "NZD",
-                                    "CNY"
-                                ],
-                                "isTransparent": false,
-                                "colorTheme": "light",
-                                "locale": "en"
-                            }
-                        </script>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section id="features" class="features">
         <div class="container">
             <h2>Why Choose ApexTrades?</h2>
-            <div class="features-grid">
+            <div class="feature-grid">
                 <div class="feature-card">
                     <div class="icon">
-                        <i class="fas fa-brain"></i>
+                        <i class="fas fa-robot"></i>
                     </div>
-                    <h3>AI-Powered Algorithms</h3>
-                    <p>Our machine learning models analyze market trends 24/7 to execute optimal trades.</p>
+                    <h3>AI-Powered Bots</h3>
+                    <p>Our algorithms analyze market trends 24/7 to execute optimal trades automatically.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Proven Strategies</h3>
+                    <p>Copy trades from our top-performing bots with verified track records.</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon">
@@ -214,47 +67,109 @@
                     <h3>Risk Management</h3>
                     <p>Automated stop-loss and take-profit to protect your investments.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="icon">
-                        <i class="fas fa-tachometer-alt"></i>
-                    </div>
-                    <h3>High Performance</h3>
-                    <p>Consistent returns with our proven trading strategies.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2>Simple, Transparent Pricing</h2>
+            <p>Choose the plan that fits your investment goals</p>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price">$500</div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Basic trading strategies</li>
+                        <li><i class="fas fa-check"></i> Up to 5% monthly returns</li>
+                        <li><i class="fas fa-check"></i> Email support</li>
+                    </ul>
+                    <a href="signup.html" class="btn btn-outline">Get Started</a>
                 </div>
-                <div class="feature-card">
-                    <div class="icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Multi-Market</h3>
-                    <p>Trade across crypto and forex markets with unified strategies.</p>
+                <div class="pricing-card popular">
+                    <div class="badge">Most Popular</div>
+                    <h3>Advanced</h3>
+                    <div class="price">$1000</div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Advanced strategies</li>
+                        <li><i class="fas fa-check"></i> Up to 10% monthly returns</li>
+                        <li><i class="fas fa-check"></i> Priority signals</li>
+                        <li><i class="fas fa-check"></i> Live chat support</li>
+                    </ul>
+                    <a href="signup.html" class="btn btn-primary">Get Started</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Professional</h3>
+                    <div class="price">$1500</div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> All Advanced features</li>
+                        <li><i class="fas fa-check"></i> Up to 15% monthly returns</li>
+                        <li><i class="fas fa-check"></i> VIP signals</li>
+                        <li><i class="fas fa-check"></i> Dedicated manager</li>
+                    </ul>
+                    <a href="signup.html" class="btn btn-outline">Get Started</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">$3000</div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> All Professional features</li>
+                        <li><i class="fas fa-check"></i> Up to 25% monthly returns</li>
+                        <li><i class="fas fa-check"></i> Custom strategies</li>
+                        <li><i class="fas fa-check"></i> 24/7 priority support</li>
+                    </ul>
+                    <a href="signup.html" class="btn btn-outline">Get Started</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Rest of the existing content (pricing, footer) remains the same -->
-    <section id="pricing" class="pricing">
-        <!-- Existing pricing section content -->
-    </section>
-
     <footer class="footer">
-        <!-- Existing footer content -->
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>ApexTrades</h3>
+                    <p>Automated crypto trading platform powered by artificial intelligence.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Status</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Risk Disclosure</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 ApexTrades. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
     <script src="assets/js/script.js"></script>
-    <script>
-        // Timeframe selector functionality
-        document.querySelectorAll('.timeframe-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const parent = this.closest('.widget-header');
-                parent.querySelectorAll('.timeframe-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                
-                // In a real implementation, you would update the chart timeframe here
-                // This is just for UI demonstration
-                console.log(`Timeframe changed to ${this.dataset.timeframe}`);
-            });
-        });
-    </script>
 </body>
 </html>
