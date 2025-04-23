@@ -96,43 +96,43 @@ function setupPaymentPage() {
         const plans = {
             starter: {
                 name: 'Starter Plan',
-                price: 500,
+                price: "299 - 999",
                 features: [
                     'Basic strategies',
                     '5% monthly returns',
                     'Email support'
                 ],
-                amount: 500
+                amount: "299 - 999"
             },
             advanced: {
                 name: 'Advanced Plan',
-                price: 1000,
+                price: "1000 - 9999",
                 features: [
                     'Advanced strategies',
                     '10% monthly returns',
                     'Live chat support'
                 ],
-                amount: 1000
+                amount: "1000 - 9999"
             },
             professional: {
                 name: 'Professional Plan',
-                price: 1500,
+                price: "10000 - 50000",
                 features: [
                     'VIP strategies',
                     '15% monthly returns',
                     'Dedicated manager'
                 ],
-                amount: 1500
+                amount: "10000 - 50000"
             },
             enterprise: {
                 name: 'Enterprise Plan',
-                price: 3000,
+                price: "50000 - 100000",
                 features: [
                     'Custom strategies',
                     '25% monthly returns',
                     '24/7 priority support'
                 ],
-                amount: 3000
+                amount: "50000 - 10000"
             }
         };
         
