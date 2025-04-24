@@ -1,3 +1,89 @@
+// Add this at the top of the file to handle viewport scaling
+document.addEventListener('DOMContentLoaded', function() {
+    // Set viewport meta tag for mobile devices
+    const metaViewport = document.createElement('meta');
+    metaViewport.name = 'viewport';
+    metaViewport.content = 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no';
+    document.head.appendChild(metaViewport);
+    
+    // Initialize the app
+    initApp();
+});
+
+// Modify the initApp function to include mobile-specific setup
+function initApp() {
+    // Check if mobile device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        document.body.classList.add('mobile-device');
+        setupMobileNavigation();
+    }
+    
+    updateUserDisplay();
+    setupTabSwitching();
+    setupCopyButtons();
+    setupPaymentPage();
+    setupForms();
+}
+
+// Add new function for mobile navigation
+function setupMobileNavigation() {
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+        const navLinks = document.querySelector('.nav-links');
+        const hamburger = document.querySelector('.hamburger');
+        
+        if (navLinks && hamburger && 
+            !e.target.closest('.nav-links') && 
+            !e.target.closest('.hamburger') &&
+            navLinks.style.display === 'flex') {
+            navLinks.style.display = 'none';
+        }
+    });
+    
+    // Make sidebar collapsible on mobile
+    const sidebarToggle = document.createElement('div');
+    sidebarToggle.className = 'sidebar-toggle';
+    sidebarToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    document.querySelector('.topbar').prepend(sidebarToggle);
+    
+    sidebarToggle.addEventListener('click', function() {
+        document.querySelector('.sidebar').classList.toggle('mobile-hidden');
+    });
+}
+
+// Update the hamburger menu click handler
+if (hamburger) {
+    hamburger.addEventListener('click', function() {
+        const navLinks = document.querySelector('.nav-links');
+        if (window.innerWidth <= 768) { // Only for mobile
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '100%';
+            navLinks.style.left = '0';
+            navLinks.style.right = '0';
+            navLinks.style.backgroundColor = 'var(--white)';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.padding = '20px';
+            navLinks.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+        }
+    });
+}
+
+// Update the protected pages check to handle mobile redirects better
+if (window.location.pathname.includes('dashboard.html') || 
+    window.location.pathname.includes('profile.html') || 
+    window.location.pathname.includes('transactions.html') || 
+    window.location.pathname.includes('settings.html') || 
+    window.location.pathname.includes('payment.html')) {
+    if (!currentUser) {
+        // Store intended destination for after login
+        sessionStorage.setItem('apextrades_redirect', window.location.pathname);
+        window.location.href = 'login.html';
+    }
+}
+
 // User Authentication System
 const users = JSON.parse(localStorage.getItem('apextrades_users')) || [];
 
