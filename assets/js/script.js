@@ -239,7 +239,7 @@ function setupPaymentPage() {
         // Update amounts
         document.getElementById('ethAmount').textContent = `${selectedPlan.amount} USDT`;
         document.getElementById('bscAmount').textContent = `${selectedPlan.amount} USDT`;
-        document.getElementById('solAmount').textContent = `${selectedPlan.amount} Worth of USD`;
+        document.getElementById('solAmount').textContent = `${selectedPlan.amount} USDC`;
         
         // Confirm payment button
         document.getElementById('confirmPayment').addEventListener('click', function() {
