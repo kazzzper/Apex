@@ -1,21 +1,68 @@
-// User Authentication System
-const users = JSON.parse(localStorage.getItem('apextrades_users')) || [];
-
-// DOM Elements
-const signupForm = document.getElementById('signupForm');
-const loginForm = document.getElementById('loginForm');
-const logoutBtn = document.getElementById('logoutBtn');
+// API Base URL
+const API_BASE_URL = 'http://localhost:5000/api';
 
 // Current User
-let currentUser = JSON.parse(sessionStorage.getItem('apextrades_currentUser'));
+let currentUser = JSON.parse(sessionStorage.getItem('apextrades_currentUser')) || null;
 
 // Initialize the app
 function initApp() {
+    // Check authentication for protected pages
+    checkAuth();
+    
+    // If user is logged in, fetch fresh data
+    if (currentUser) {
+        fetchUserData();
+    }
+    
     updateUserDisplay();
     setupTabSwitching();
     setupCopyButtons();
     setupPaymentPage();
     setupForms();
+    setupMobileMenu();
+}
+
+// Check authentication for protected pages
+function checkAuth() {
+    const protectedPages = [
+        'dashboard.html',
+        'profile.html',
+        'transactions.html',
+        'settings.html',
+        'payment.html'
+    ];
+    
+    const currentPage = window.location.pathname.split('/').pop();
+    
+    if (protectedPages.includes(currentPage)) {
+        if (!currentUser) {
+            window.location.href = 'login.html';
+        }
+    }
+}
+
+// Fetch user data from server
+async function fetchUserData() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/user`, {
+            headers: {
+                'Authorization': `Bearer ${currentUser.token}`
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch user data');
+        }
+        
+        const userData = await response.json();
+        currentUser = { ...currentUser, ...userData };
+        sessionStorage.setItem('apextrades_currentUser', JSON.stringify(currentUser));
+        updateUserDisplay();
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+        // If there's an error (like token expired), log out the user
+        logout();
+    }
 }
 
 // Update user display across all pages
@@ -23,25 +70,28 @@ function updateUserDisplay() {
     if (currentUser) {
         // Update dashboard elements
         if (document.getElementById('username')) {
-            document.getElementById('username').textContent = currentUser.fullname.split(' ')[0];
+            document.getElementById('username').textContent = currentUser.fullname ? currentUser.fullname.split(' ')[0] : 'User';
         }
         if (document.getElementById('userNameDisplay')) {
-            document.getElementById('userNameDisplay').textContent = currentUser.fullname;
+            document.getElementById('userNameDisplay').textContent = currentUser.fullname || 'User';
         }
         if (document.getElementById('profileName')) {
-            document.getElementById('profileName').textContent = currentUser.fullname;
+            document.getElementById('profileName').textContent = currentUser.fullname || 'User';
         }
         if (document.getElementById('profileEmail')) {
-            document.getElementById('profileEmail').textContent = currentUser.email;
+            document.getElementById('profileEmail').textContent = currentUser.email || '';
         }
         if (document.getElementById('fullName')) {
-            document.getElementById('fullName').value = currentUser.fullname;
+            document.getElementById('fullName').value = currentUser.fullname || '';
         }
         if (document.getElementById('email')) {
-            document.getElementById('email').value = currentUser.email;
+            document.getElementById('email').value = currentUser.email || '';
+        }
+        if (document.getElementById('phone')) {
+            document.getElementById('phone').value = currentUser.phone || '';
         }
         if (document.getElementById('memberSince')) {
-            const joinedDate = new Date(currentUser.joined);
+            const joinedDate = currentUser.joined ? new Date(currentUser.joined) : new Date();
             document.getElementById('memberSince').textContent = joinedDate.toLocaleDateString();
         }
         if (document.getElementById('currentPlan')) {
@@ -86,7 +136,7 @@ function setupCopyButtons() {
 }
 
 // Setup payment page functionality
-function setupPaymentPage() {
+async function setupPaymentPage() {
     if (window.location.pathname.includes('payment.html')) {
         // Get plan from URL
         const urlParams = new URLSearchParams(window.location.search);
@@ -139,47 +189,76 @@ function setupPaymentPage() {
         const selectedPlan = plans[plan] || plans.advanced;
         
         // Update plan info
-        document.getElementById('planName').textContent = selectedPlan.name;
-        document.getElementById('planPrice').textContent = `$${selectedPlan.price}`;
+        if (document.getElementById('planName')) {
+            document.getElementById('planName').textContent = selectedPlan.name;
+        }
+        if (document.getElementById('planPrice')) {
+            document.getElementById('planPrice').textContent = `$${selectedPlan.price}`;
+        }
         
         const featuresList = document.getElementById('planFeatures');
-        featuresList.innerHTML = '';
-        selectedPlan.features.forEach(feature => {
-            const li = document.createElement('li');
-            li.innerHTML = `<i class="fas fa-check"></i> ${feature}`;
-            featuresList.appendChild(li);
-        });
+        if (featuresList) {
+            featuresList.innerHTML = '';
+            selectedPlan.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fas fa-check"></i> ${feature}`;
+                featuresList.appendChild(li);
+            });
+        }
         
         // Update amounts
-        document.getElementById('ethAmount').textContent = `${selectedPlan.amount} USDT`;
-        document.getElementById('bscAmount').textContent = `${selectedPlan.amount} USDT`;
-        document.getElementById('solAmount').textContent = `${selectedPlan.amount} Worth of USD`;
+        if (document.getElementById('ethAmount')) {
+            document.getElementById('ethAmount').textContent = `${selectedPlan.amount} USDT`;
+        }
+        if (document.getElementById('bscAmount')) {
+            document.getElementById('bscAmount').textContent = `${selectedPlan.amount} USDT`;
+        }
+        if (document.getElementById('solAmount')) {
+            document.getElementById('solAmount').textContent = `${selectedPlan.amount} Worth of USD`;
+        }
         
         // Confirm payment button
-        document.getElementById('confirmPayment').addEventListener('click', function() {
-            if (currentUser) {
-                currentUser.plan = plan;
-                sessionStorage.setItem('apextrades_currentUser', JSON.stringify(currentUser));
-                
-                // Update user in local storage
-                const userIndex = users.findIndex(u => u.email === currentUser.email);
-                if (userIndex !== -1) {
-                    users[userIndex] = currentUser;
-                    localStorage.setItem('apextrades_users', JSON.stringify(users));
+        const confirmPaymentBtn = document.getElementById('confirmPayment');
+        if (confirmPaymentBtn) {
+            confirmPaymentBtn.addEventListener('click', async function() {
+                if (currentUser) {
+                    try {
+                        const response = await fetch(`${API_BASE_URL}/user/plan`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${currentUser.token}`
+                            },
+                            body: JSON.stringify({ plan })
+                        });
+                        
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            throw new Error(errorData.message || 'Failed to update plan');
+                        }
+                        
+                        // Update local user data
+                        currentUser.plan = plan;
+                        sessionStorage.setItem('apextrades_currentUser', JSON.stringify(currentUser));
+                        
+                        alert('Thank you for your payment! Kindly wait for your account to be upgraded.');
+                        window.location.href = 'dashboard.html';
+                    } catch (error) {
+                        console.error('Error updating plan:', error);
+                        alert(error.message || 'Failed to process payment. Please try again.');
+                    }
                 }
-                
-                alert('Thank you for your payment! Kindly wait for your account to be upgraded.');
-                window.location.href = 'dashboard.html';
-            }
-        });
+            });
+        }
     }
 }
 
 // Setup form submissions
 function setupForms() {
     // Sign Up Form
+    const signupForm = document.getElementById('signupForm');
     if (signupForm) {
-        signupForm.addEventListener('submit', function(e) {
+        signupForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const fullname = document.getElementById('fullname').value;
@@ -198,92 +277,135 @@ function setupForms() {
                 return;
             }
             
-            // Check if user already exists
-            const userExists = users.some(user => user.email === email);
-            if (userExists) {
-                alert('User with this email already exists!');
-                return;
+            try {
+                const response = await fetch(`${API_BASE_URL}/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        fullname,
+                        email,
+                        password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'Registration failed');
+                }
+                
+                // Store user data and token
+                currentUser = {
+                    ...data.user,
+                    token: data.token
+                };
+                sessionStorage.setItem('apextrades_currentUser', JSON.stringify(currentUser));
+                
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html';
+            } catch (error) {
+                console.error('Registration error:', error);
+                alert(error.message || 'Registration failed. Please try again.');
             }
-            
-            // Create new user
-            const newUser = {
-                fullname,
-                email,
-                password, // Note: In a real app, you should hash the password
-                plan: 'free',
-                balance: 0,
-                joined: new Date().toISOString()
-            };
-            
-            users.push(newUser);
-            localStorage.setItem('apextrades_users', JSON.stringify(users));
-            
-            // Log the user in
-            currentUser = newUser;
-            sessionStorage.setItem('apextrades_currentUser', JSON.stringify(newUser));
-            updateUserDisplay();
-            window.location.href = 'dashboard.html';
         });
     }
     
     // Login Form
+    const loginForm = document.getElementById('loginForm');
     if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
+        loginForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
-            // Find user
-            const user = users.find(user => user.email === email && user.password === password);
-            
-            if (user) {
-                currentUser = user;
-                sessionStorage.setItem('apextrades_currentUser', JSON.stringify(user));
-                updateUserDisplay();
+            try {
+                const response = await fetch(`${API_BASE_URL}/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email,
+                        password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'Login failed');
+                }
+                
+                // Store user data and token
+                currentUser = {
+                    ...data.user,
+                    token: data.token
+                };
+                sessionStorage.setItem('apextrades_currentUser', JSON.stringify(currentUser));
+                
+                // Redirect to dashboard
                 window.location.href = 'dashboard.html';
-            } else {
-                alert('Invalid email or password!');
+            } catch (error) {
+                console.error('Login error:', error);
+                alert(error.message || 'Invalid email or password!');
             }
         });
     }
     
     // Logout Button
+    const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            sessionStorage.removeItem('apextrades_currentUser');
-            currentUser = null;
-            window.location.href = 'login.html';
+            logout();
         });
     }
     
     // Personal Info Form
     const personalInfoForm = document.getElementById('personalInfoForm');
     if (personalInfoForm) {
-        personalInfoForm.addEventListener('submit', function(e) {
+        personalInfoForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const fullName = document.getElementById('fullName').value;
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
             
-            if (currentUser) {
-                currentUser.fullname = fullName;
-                currentUser.email = email;
-                currentUser.phone = phone;
+            try {
+                const response = await fetch(`${API_BASE_URL}/user`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${currentUser.token}`
+                    },
+                    body: JSON.stringify({
+                        fullname: fullName,
+                        email,
+                        phone
+                    })
+                });
                 
-                sessionStorage.setItem('apextrades_currentUser', JSON.stringify(currentUser));
+                const data = await response.json();
                 
-                // Update user in local storage
-                const userIndex = users.findIndex(u => u.email === currentUser.email);
-                if (userIndex !== -1) {
-                    users[userIndex] = currentUser;
-                    localStorage.setItem('apextrades_users', JSON.stringify(users));
+                if (!response.ok) {
+                    throw new Error(data.message || 'Failed to update profile');
                 }
+                
+                // Update local user data
+                currentUser = {
+                    ...currentUser,
+                    ...data.user
+                };
+                sessionStorage.setItem('apextrades_currentUser', JSON.stringify(currentUser));
                 
                 updateUserDisplay();
                 alert('Personal information updated successfully!');
+            } catch (error) {
+                console.error('Profile update error:', error);
+                alert(error.message || 'Failed to update profile. Please try again.');
             }
         });
     }
@@ -291,17 +413,12 @@ function setupForms() {
     // Security Form
     const securityForm = document.getElementById('securityForm');
     if (securityForm) {
-        securityForm.addEventListener('submit', function(e) {
+        securityForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const currentPassword = document.getElementById('currentPassword').value;
             const newPassword = document.getElementById('newPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (!currentUser || currentUser.password !== currentPassword) {
-                alert('Current password is incorrect!');
-                return;
-            }
             
             if (newPassword !== confirmPassword) {
                 alert('New passwords do not match!');
@@ -313,40 +430,53 @@ function setupForms() {
                 return;
             }
             
-            currentUser.password = newPassword;
-            sessionStorage.setItem('apextrades_currentUser', JSON.stringify(currentUser));
-            
-            // Update user in local storage
-            const userIndex = users.findIndex(u => u.email === currentUser.email);
-            if (userIndex !== -1) {
-                users[userIndex] = currentUser;
-                localStorage.setItem('apextrades_users', JSON.stringify(users));
+            try {
+                const response = await fetch(`${API_BASE_URL}/user/password`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${currentUser.token}`
+                    },
+                    body: JSON.stringify({
+                        currentPassword,
+                        newPassword
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'Failed to update password');
+                }
+                
+                alert('Password updated successfully!');
+                securityForm.reset();
+            } catch (error) {
+                console.error('Password update error:', error);
+                alert(error.message || 'Failed to update password. Please try again.');
             }
-            
-            alert('Password updated successfully!');
-            securityForm.reset();
         });
     }
 }
 
-// Mobile Menu Toggle
-const hamburger = document.querySelector('.hamburger');
-if (hamburger) {
-    hamburger.addEventListener('click', function() {
-        const navLinks = document.querySelector('.nav-links');
-        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-    });
+// Setup mobile menu toggle
+function setupMobileMenu() {
+    const hamburger = document.querySelector('.hamburger');
+    if (hamburger) {
+        hamburger.addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks) {
+                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            }
+        });
+    }
 }
 
-// Check if user is logged in for protected pages
-if (window.location.pathname.includes('dashboard.html') || 
-    window.location.pathname.includes('profile.html') || 
-    window.location.pathname.includes('transactions.html') || 
-    window.location.pathname.includes('settings.html') || 
-    window.location.pathname.includes('payment.html')) {
-    if (!currentUser) {
-        window.location.href = 'login.html';
-    }
+// Logout function
+function logout() {
+    sessionStorage.removeItem('apextrades_currentUser');
+    currentUser = null;
+    window.location.href = 'login.html';
 }
 
 // Initialize the app when DOM is loaded

@@ -1,0 +1,9 @@
+#env 
+.env 
+#local package dependencies'
+node_modules
+#
+setup.sql
+
+#package lock 
+package-lock.json
