@@ -1,3 +1,0 @@
-CREATE DATABASE auth_database;
-CREATE USER postgres WITH PASSWORD 1234;
-GRANT ALL PRIVILEGES ON DATABASE auth_database to postgres
