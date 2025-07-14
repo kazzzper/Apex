@@ -1,0 +1,6 @@
+fullname = notnull
+email = unique not null
+password = hash and salt with bcryptjs 
+plan = default (starter), advanced , enterprise , professional not null
+balance 
+joined = now()

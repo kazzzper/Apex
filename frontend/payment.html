@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment | ApexTrades</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="assets/images/favicon.png" type="image/png" />
+</head>
+<body class="dashboard">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.svg" alt="ApexTrades">
+                <span>ApexTrades</span>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="dashboard.html">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-robot"></i>
+                        <span>Trading Bots</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="transactions.html">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Transactions</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="#" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Log Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="user-menu">
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </div>
+                <div class="user-profile">
+                    <img src="assets/images/user-avatar.png" alt="User" id="userAvatar">
+                    <span id="userNameDisplay">Loading...</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="payment-container">
+                <div class="payment-header">
+                    <h1>Complete Your Payment</h1>
+                    <p>Send crypto to the address below to activate your trading plan</p>
+                </div>
+
+                <div class="payment-details">
+                    <div class="plan-summary">
+                        <h3 id="planName">Advanced Plan</h3>
+                        <div class="price" id="planPrice">$299 - $999</div>
+                        <ul id="planFeatures">
+                            <li><i class="fas fa-check"></i> Advanced strategies</li>
+                            <li><i class="fas fa-check"></i> 10% monthly returns</li>
+                            <li><i class="fas fa-check"></i> Live chat support</li>
+                        </ul>
+                    </div>
+
+                    <div class="payment-methods">
+                        <div class="method-tabs">
+                            <button class="tab-btn active" data-tab="ethereum">
+                                <i class="fab fa-ethereum"></i> Ethereum
+                            </button>
+                            <button class="tab-btn" data-tab="bsc">
+                                <i class="fas fa-coins"></i> Tron network
+                            </button>
+                            <button class="tab-btn" data-tab="solana">
+                                <i class="fas fa-bolt"></i> Bitcoin
+                            </button>
+                        </div>
+
+                        <div class="tab-content active" id="ethereum">
+                            <div class="payment-instructions">
+                                <p>Send exactly <strong id="ethAmount">299 - 999 USDT</strong> to the following ERC-20 address:</p>
+                                <div class="wallet-address">
+                                    <code id="ethAddress">0x2a2B73a1dA165Aec951C0fc3B576E575AFC30Ab3</code>
+                                    <button class="copy-btn" data-address="0x2a2B73a1dA165Aec951C0fc3B576E575AFC30Ab3">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                                <div class="qr-container">
+                                    <img src="assets/images/eth-qr.png" alt="Ethereum QR Code">
+                                </div>
+                                <div class="important-note">
+                                    <h4><i class="fas fa-exclamation-circle"></i> Important Notes:</h4>
+                                    <ul>
+                                        <li>Send only USDT (ERC-20) to this address</li>
+                                        <li>Your account will be upgraded after 3 network confirmations</li>
+                                        <li>Minimum deposit: $299 equivalent</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="bsc">
+                            <div class="payment-instructions">
+                                <p>Send exactly <strong id="bscAmount">299 - 999 USDT</strong> to the following TRC-20 address:</p>
+                                <div class="wallet-address">
+                                    <code id="bscAddress">TCWykp5Q1vu9LTCcmzHmmVNwxHZSnLkCEG</code>
+                                    <button class="copy-btn" data-address="TCWykp5Q1vu9LTCcmzHmmVNwxHZSnLkCEG">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                                <div class="qr-container">
+                                    <img src="assets/images/trc-qr.png" alt="BSC QR Code">
+                                </div>
+                                <div class="important-note">
+                                    <h4><i class="fas fa-exclamation-circle"></i> Important Notes:</h4>
+                                    <ul>
+                                        <li>Send only USDT (TRC-20) to this address</li>
+
+                                        <li>Your account will be upgraded after 3 network confirmations</li>
+                                        <li>Minimum deposit: $299 equivalent</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="solana">
+                            <div class="payment-instructions">
+                                <p>Send exactly <strong id="solAmount">299 - 999 USDC</strong> to the following Bitcoin address:</p>
+                                <div class="wallet-address">
+                                    <code id="solAddress">bc1qp7s85248d5m4d2c7pkrwz6cfwejugxexkjuvk8</code>
+                                    <button class="copy-btn" data-address="bc1qp7s85248d5m4d2c7pkrwz6cfwejugxexkjuvk8">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                                <div class="qr-container">
+                                    <img src="assets/images/btc-qr.png" alt="Solana QR Code">
+                                </div>
+                                <div class="important-note">
+                                    <h4><i class="fas fa-exclamation-circle"></i> Important Notes:</h4>
+                                    <ul>
+                                        <li>Send only BTC to this address</li>
+            
+                                        <li>Your account will be upgraded after 3 network confirmations</li>
+                                        <li>Minimum deposit: $299 equivalent</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="payment-actions">
+                    <a href="dashboard.html" class="btn btn-outline">
+                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                    </a>
+                    <button class="btn btn-primary" id="confirmPayment">
+                        <i class="fas fa-check"></i> I've Sent the Payment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
