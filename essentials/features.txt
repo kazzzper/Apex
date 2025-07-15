@@ -1,1 +1,6 @@
 !! change alert to popup 
+
+feature for new commit(v.1.0_prod)
+-modify cors to use frontend origin 
+-change local urls to backend url on script.js 
+-make changes to suite render 
