@@ -100,7 +100,7 @@ function setupPaymentPage() {
     document.getElementById('confirmPayment')?.addEventListener('click', async () => {
         if (!currentUser) return alert('Not logged in.');
         try {
-            const res = await fetch('http://localhost:5000/api/users/update-plan', {
+            const res = await fetch('https://apex-1-vigv.onrender.com/api/users/update-plan', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: currentUser.email, plan })
@@ -149,7 +149,7 @@ function setupForms() {
             if (password !== confirmPassword) return alert('Passwords do not match!');
 
             try {
-                const res = await fetch('http://localhost:5000/api/users/register', {
+                const res = await fetch('https://apex-1-vigv.onrender.com/api/users/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ fullname, email, password })
@@ -172,7 +172,7 @@ function setupForms() {
             const password = document.getElementById('password').value;
 
             try {
-                const res = await fetch('http://localhost:5000/api/users/login', {
+                const res = await fetch('https://apex-1-vigv.onrender.com/api/users/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
@@ -204,7 +204,7 @@ function setupForms() {
             const fullname = document.getElementById('fullName').value;
             const email = currentUser.email;
             try {
-                const res = await fetch('http://localhost:5000/api/users/update-info', {
+                const res = await fetch('https://apex-1-vigv.onrender.com/api/users/update-info', {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ fullname, email })
@@ -230,7 +230,7 @@ function setupForms() {
             if (newPassword !== confirmPassword) return alert('Passwords do not match!');
 
             try {
-                const res = await fetch('http://localhost:5000/api/users/update-password', {
+                const res = await fetch('https://apex-1-vigv.onrender.com/api/users/update-password', {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: currentUser.email, currentPassword, newPassword })
