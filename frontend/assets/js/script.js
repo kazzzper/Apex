@@ -261,3 +261,29 @@ if (hamburger) {
         navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
     });
 }
+
+// Mobile menu toggle
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarClose = document.querySelector('.sidebar-close');
+    
+    if (mobileMenuToggle && sidebar) {
+        mobileMenuToggle.addEventListener('click', function() {
+            sidebar.classList.add('active');
+        });
+    }
+    
+    if (sidebarClose) {
+        sidebarClose.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+        });
+    }
+    
+    // Close sidebar when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!sidebar.contains(e.target) && e.target !== mobileMenuToggle) {
+            sidebar.classList.remove('active');
+        }
+    });
+});

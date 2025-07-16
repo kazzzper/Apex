@@ -9,12 +9,20 @@
     <link rel="icon" href="assets/images/favicon.png" type="image/png" />
 </head>
 <body class="dashboard">
+    <!-- Mobile Menu Toggle Button -->
+    <button class="mobile-menu-toggle" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+    </button>
+
     <aside class="sidebar">
         <div class="sidebar-header">
             <a href="index.html" class="logo">
                 <img src="assets/images/logo.svg" alt="ApexTrades">
                 <span>ApexTrades</span>
             </a>
+            <button class="sidebar-close" aria-label="Close menu">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
         <nav class="sidebar-nav">
             <ul>
@@ -78,7 +86,7 @@
 
         <div class="content">
             <div class="welcome-banner">
-                <h1>Welcome , <span id="username">Trader</span>!</h1>
+                <h1>Welcome, <span id="username">Trader</span>!</h1>
                 <p>Your trading dashboard is ready. Check your portfolio performance below.</p>
             </div>
 
